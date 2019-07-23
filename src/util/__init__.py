@@ -1,3 +1,3 @@
-from util.crop_borders import *
-from util.visualize_cc import *
-from util.compute_main_axis_length import *
+from util.crop_borders import crop_borders
+from util.visualize_cc import visualize_connected_components
+from util.compute_main_axis_length import compute_main_axis_length, to_index, to_coordinates, get_source_coordinate, get_target_index, make_adjacency_matrix

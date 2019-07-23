@@ -1,3 +1,10 @@
+# Layiwola Ibukun
+# EGN4912: Switchgrass Root and Panicle Analysis
+# Editor since: Tuesday, June 25th, 2019
+
+# Author: Yutai Zhou
+# compute_main_axis_length.py
+
 import numpy as np
 import itertools
 import matplotlib.pyplot as plt
