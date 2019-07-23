@@ -15,7 +15,7 @@ from tabulate import tabulate
 start_time = time.time()
 
 # get the input images
-image_folder = 'data/select_images' # folder path
+image_folder = 'data/images' # folder path
 working_dir = osp.dirname(__file__) # current working directory
 image_dir = osp.join(working_dir, image_folder)
 images = os.listdir(image_dir) # input image names
@@ -132,16 +132,16 @@ for img in images:
 
 	# *********** MAKE PLOTS ******************************************************
 	image_figs = [
-					# (f'name: {img}, density_morph: {density_morph:.2f}, density_convexhull: {density_hull:.2f}\n length_pixels: {length_pixels:.2f}, diameter_pixels: {diameter_pixels:.2f}', img_gray),  # original image
-					('cropped', img_cropped), # cropped image
-					('open main axis', img_open), # morphology opening
-					('closed density', img_close), # morphology closing
-					('convex hull density', convexhull_img), # convex hulls
-					('largest hull density', final_hull_img), # largest convex hull
-					('connected components', img_ccomp), # visualize_connected_components
-					('main axis', img_main_axis), # the main axis
-					('main axis skeleton', img_main_axis_thin), # skeleton
-					('shortest path', img_length) # final length
+					(f'name: {img}    density_closing: {density_morph:.2f}    density_convexhull: {density_hull:.2f}    diameter_pixels: {diameter_pixels:.2f}    length_pixels: {length_pixels:.0f}', img_gray),  # original image
+					# ('cropped', img_cropped), # cropped image
+					# ('open main axis', img_open), # morphology opening
+					# ('closed density', img_close), # morphology closing
+					# ('convex hull density', convexhull_img), # convex hulls
+					# ('largest hull density', final_hull_img), # largest convex hull
+					# ('connected components', img_ccomp), # visualize_connected_components
+					# ('main axis', img_main_axis), # the main axis
+					# ('main axis skeleton', img_main_axis_thin), # skeleton
+					# ('shortest path', img_length) # final length
 				 ]
 
 	for (title, image) in image_figs:
@@ -198,7 +198,7 @@ print(f'total elapsed time = {total_elapsed_time:.2f}')
 # for index, img_info in enumerate(img_features):
 # 	fig1, ax1 = plt.subplots()
 # 	ax1.imshow(orig_imgs[index], cmap='gray')
-# 	ax1.set_title(f'name: {img_info[0]}    density_morph: {float(img_info[1]):.2f}    density_convexhull: {float(img_info[2]):.2f}    length_pixels: {float(img_info[3]):.2f}    diameter_pixels: {float(img_info[4]):.2f}')
+#	ax1.set_title(f'name: {img_info[0]}    density_closing: {float(img_info[1]):.2f}    density_convexhull: {float(img_info[2]):.2f}    diameter_pixels: {float(img_info[3]):.2f}    length_pixels: {float(img_info[4]):.0f}')
 
 # # report elapsed time
 # total_elapsed_time = time.time() - start_time
