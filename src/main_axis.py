@@ -5,6 +5,9 @@
 # Author: Yutai Zhou
 # main_axis.py
 
+# for python 2 compatibility
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import os 
 import cv2
 import os.path as osp

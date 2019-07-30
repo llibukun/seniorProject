@@ -5,6 +5,9 @@
 # Author: Yutai Zhou
 # density.py
 
+# for python 2 compatibility
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import os, cv2
 import os.path as osp
 import numpy as np

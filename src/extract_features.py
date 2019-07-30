@@ -3,6 +3,9 @@
 # Created: Tuesday, July 2nd, 2019
 # extract_features.py
 
+# for python 2 compatibility
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import os, cv2, time
 import os.path as osp
 import numpy as np
@@ -163,6 +166,9 @@ for img in images:
 
 	# image start time
 	img_elapsed_time = time.time() - img_start_time
+
+	# *********** BRANCH PROPERTIES *************************************************
+
 
 # *********** TABULATE *****************************************
 img_header = ['image name', 'density closing', 'density convex hull', 'diameter pixels', 'length pixels']
