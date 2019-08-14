@@ -10,15 +10,15 @@ import os, cv2, time
 import os.path as osp
 import numpy as np
 import matplotlib.pyplot as plt
-from skimage.morphology import thin
-from util import crop_borders, visualize_connected_components, compute_main_axis_length
+from skimage.morphology import thin, skeletonize
+from util import crop_borders, visualize_connected_components, compute_main_axis_length, intersections
 from tabulate import tabulate
-
+	
 # program start time
 start_time = time.time()
 
 # get the input images
-image_folder = 'data/images' # folder path
+image_folder = 'data/select_images' # folder path
 working_dir = osp.dirname(__file__) # current working directory
 image_dir = osp.join(working_dir, image_folder)
 images = os.listdir(image_dir) # input image names
@@ -133,18 +133,31 @@ for img in images:
 	img_main_axis_thin = thin(binary_main_axis).astype('uint8') # first thin
 	length_pixels, img_length = compute_main_axis_length(img_main_axis_thin) # then use dijkstra
 
+	# *********** BRANCH PROPERTIES *************************************************
+	# perform skeletonization
+	img_normed = img_cropped
+	img_normed[img_normed==255] = 1
+	img_skeleton = skeletonize(img_normed)
+
+	# find intersections/count branches
+	intersections = getSkeletonIntersection(img_skeleton)
+	# to be continued...
+
+
 	# *********** MAKE PLOTS ******************************************************
 	image_figs = [
+					# to print results and properties with the images
 					(f'name: {img}    density_closing: {density_morph:.2f}    density_convexhull: {density_hull:.2f}    diameter_pixels: {diameter_pixels:.2f}    length_pixels: {length_pixels:.0f}', img_gray),  # original image
-					# ('cropped', img_cropped), # cropped image
-					# ('open main axis', img_open), # morphology opening
-					# ('closed density', img_close), # morphology closing
-					# ('convex hull density', convexhull_img), # convex hulls
-					# ('largest hull density', final_hull_img), # largest convex hull
-					# ('connected components', img_ccomp), # visualize_connected_components
-					# ('main axis', img_main_axis), # the main axis
-					# ('main axis skeleton', img_main_axis_thin), # skeleton
-					# ('shortest path', img_length) # final length
+					('cropped', img_cropped), # cropped image
+					('skeleton', img_skeleton), # skeletonized image
+					('open main axis', img_open), # morphology opening
+					('closed density', img_close), # morphology closing
+					('convex hull density', convexhull_img), # convex hulls
+					('largest hull density', final_hull_img), # largest convex hull
+					('connected components', img_ccomp), # visualize_connected_components
+					('main axis', img_main_axis), # the main axis
+					('main axis skeleton', img_main_axis_thin), # skeleton
+					('shortest path', img_length) # final length
 				 ]
 
 	for (title, image) in image_figs:
@@ -166,8 +179,6 @@ for img in images:
 
 	# image start time
 	img_elapsed_time = time.time() - img_start_time
-
-	# *********** BRANCH PROPERTIES *************************************************
 
 
 # *********** TABULATE *****************************************
